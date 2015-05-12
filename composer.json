@@ -1,0 +1,39 @@
+{
+  "name": "boekkooi/tactician-amqp",
+  "description": "Queueing command bus plugin for Tactician using the php-amqp extension",
+  "license": "MIT",
+  "keywords": ["amqp", "tactician", "command-bus"],
+  "homepage": "http://tactician.thephpleague.com",
+  "authors": [
+    {
+      "name": "Warnar Boekkooi",
+      "email": "warnar@boekkooi.net"
+    }
+  ],
+  "require": {
+    "ext-amqp": "*",
+    "league/tactician": "^0.6"
+  },
+  "require-dev": {
+    "mockery/mockery": "~0.9",
+    "phpunit/phpunit": "~4.3",
+    "squizlabs/php_codesniffer": "~2.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Boekkooi\\Tactician\\AMQP\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\Boekkooi\\Tactician\\AMQP\\": "tests/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.1-dev"
+    }
+  },
+  "prefer-stable": true,
+  "minimum-stability": "dev"
+}
