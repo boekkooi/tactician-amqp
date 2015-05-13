@@ -6,9 +6,6 @@ use Boekkooi\Tactician\AMQP\Message;
 use Boekkooi\Tactician\AMQP\Publisher\Publisher;
 use Mockery;
 
-/**
- * @author Warnar Boekkooi <warnar@boekkooi.net>
- */
 class PublishMiddlewareTest extends \PHPUnit_Framework_TestCase
 {
     /**

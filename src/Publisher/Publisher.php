@@ -4,9 +4,6 @@ namespace Boekkooi\Tactician\AMQP\Publisher;
 use Boekkooi\Tactician\AMQP\Message;
 use Boekkooi\Tactician\AMQP\Exception\FailedToPublishException;
 
-/**
- * @author Warnar Boekkooi <warnar@boekkooi.net>
- */
 interface Publisher
 {
     /**

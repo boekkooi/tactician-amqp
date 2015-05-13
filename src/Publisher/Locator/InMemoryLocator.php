@@ -4,9 +4,6 @@ namespace Boekkooi\Tactician\AMQP\Publisher\Locator;
 use Boekkooi\Tactician\AMQP\Exception\MissingExchangeException;
 use Boekkooi\Tactician\AMQP\Message;
 
-/**
- * @author Warnar Boekkooi <warnar@boekkooi.net>
- */
 class InMemoryLocator implements ExchangeLocator
 {
     /**

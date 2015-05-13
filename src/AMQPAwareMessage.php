@@ -1,9 +1,6 @@
 <?php
 namespace Boekkooi\Tactician\AMQP;
 
-/**
- * @author Warnar Boekkooi <warnar@boekkooi.net>
- */
 interface AMQPAwareMessage extends Message
 {
     /**

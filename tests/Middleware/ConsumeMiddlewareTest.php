@@ -5,9 +5,6 @@ use Boekkooi\Tactician\AMQP\AMQPCommand;
 use Boekkooi\Tactician\AMQP\Middleware\ConsumeMiddleware;
 use Mockery;
 
-/**
- * @author Warnar Boekkooi <warnar@boekkooi.net>
- */
 class ConsumeMiddlewareTest extends \PHPUnit_Framework_TestCase
 {
     /**

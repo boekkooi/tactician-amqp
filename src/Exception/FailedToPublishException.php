@@ -3,9 +3,6 @@ namespace Boekkooi\Tactician\AMQP\Exception;
 
 use Boekkooi\Tactician\AMQP\Message;
 
-/**
- * @author Warnar Boekkooi <warnar@boekkooi.net>
- */
 class FailedToPublishException extends \RuntimeException implements Exception
 {
     /**
