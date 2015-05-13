@@ -24,6 +24,7 @@ class InMemoryLocatorTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_return_the_exchange_for_a_specific_message()
     {
+        /** @var \AMQPExchange $exchange */
         $exchange = Mockery::mock(\AMQPExchange::class);
 
         $this->inMemoryLocator->addExchange($exchange, MessageCommand::class);

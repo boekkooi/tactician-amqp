@@ -15,7 +15,7 @@
     "league/tactician": "^0.6"
   },
   "require-dev": {
-    "mockery/mockery": "~0.9",
+    "mockery/mockery": "~0.9, >= 0.9.4",
     "phpunit/phpunit": "~4.3",
     "squizlabs/php_codesniffer": "~2.3"
   },
