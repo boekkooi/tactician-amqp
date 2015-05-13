@@ -1,8 +1,7 @@
 <?php
 namespace Boekkooi\Tactician\AMQP\Publisher;
 
-use Boekkooi\Tactician\AMQP\Exception\MissingExchangeException;
-use Boekkooi\Tactician\AMQP\Handler\Locator\ExchangeLocator;
+use Boekkooi\Tactician\AMQP\Publisher\Locator\ExchangeLocator;
 use Boekkooi\Tactician\AMQP\Message;
 
 /**
