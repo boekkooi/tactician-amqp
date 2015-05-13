@@ -11,7 +11,7 @@ class MissingExchangeException extends \OutOfBoundsException implements Exceptio
     /**
      * @var string
      */
-    private $tacticianMessage;
+    protected $tacticianMessage;
 
     /**
      * @param Message $message

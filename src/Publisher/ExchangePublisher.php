@@ -32,7 +32,7 @@ abstract class ExchangePublisher implements Publisher
                 throw FailedToPublishException::fromMessage($message);
             }
         } catch (\AMQPException $e) {
-            throw FailedToPublishException::fromException($e, $message);
+            throw FailedToPublishException::fromException($message, $e);
         }
     }
 

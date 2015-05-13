@@ -11,7 +11,7 @@ class FailedToPublishException extends \RuntimeException implements Exception
     /**
      * @var Message
      */
-    private $tacticianMessage;
+    protected $tacticianMessage;
 
     /**
      * @param Message $message
@@ -20,7 +20,7 @@ class FailedToPublishException extends \RuntimeException implements Exception
      */
     public static function fromMessage(Message $message)
     {
-        $exception = new static('Failed to publish a message to it\'s exchange');
+        $exception = new static('Failed to publish the message to it\'s exchange');
         $exception->tacticianMessage = $message;
 
         return $exception;
@@ -32,9 +32,9 @@ class FailedToPublishException extends \RuntimeException implements Exception
      *
      * @return static
      */
-    public static function fromException(\AMQPException $exception, Message $message)
+    public static function fromException(Message $message, \AMQPException $exception)
     {
-        $exception = new static('A AMQP exception occured while publishing a message', 0, $exception);
+        $exception = new static('A AMQP exception occured while publishing the message', 0, $exception);
         $exception->tacticianMessage = $message;
 
         return $exception;
