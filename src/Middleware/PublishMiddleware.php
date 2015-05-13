@@ -1,13 +1,14 @@
 <?php
-namespace Boekkooi\Tactician\AMQP;
+namespace Boekkooi\Tactician\AMQP\Middleware;
 
+use Boekkooi\Tactician\AMQP\Message;
 use League\Tactician\Middleware;
 use Boekkooi\Tactician\AMQP\Publisher\Publisher;
 
 /**
- * @author Warnar Boekkooi <warnar@boekkooi.net>
+ * A middleware that will publish AMQP message to a publisher
  */
-class ExchangeMiddleware implements Middleware
+class PublishMiddleware implements Middleware
 {
     /**
      * @var Publisher
@@ -29,10 +30,6 @@ class ExchangeMiddleware implements Middleware
     {
         if ($command instanceof Message) {
             return $this->publisher->publish($command);
-        }
-
-        if ($command instanceof \AMQPEnvelope) {
-            $command = new AMQPCommand($command, null);
         }
 
         return $next($command);

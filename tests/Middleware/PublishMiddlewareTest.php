@@ -1,8 +1,7 @@
 <?php
-namespace Tests\Boekkooi\Tactician\AMQP;
+namespace Tests\Boekkooi\Tactician\AMQP\Middleware;
 
-use Boekkooi\Tactician\AMQP\AMQPCommand;
-use Boekkooi\Tactician\AMQP\ExchangeMiddleware;
+use Boekkooi\Tactician\AMQP\Middleware\PublishMiddleware;
 use Boekkooi\Tactician\AMQP\Message;
 use Boekkooi\Tactician\AMQP\Publisher\Publisher;
 use Mockery;
@@ -10,10 +9,10 @@ use Mockery;
 /**
  * @author Warnar Boekkooi <warnar@boekkooi.net>
  */
-class ExchangeMiddlewareTest extends \PHPUnit_Framework_TestCase
+class PublishMiddlewareTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var ExchangeMiddleware
+     * @var PublishMiddleware
      */
     private $middleware;
 
@@ -25,7 +24,7 @@ class ExchangeMiddlewareTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->publisher = Mockery::mock(Publisher::class);
-        $this->middleware = new ExchangeMiddleware($this->publisher);
+        $this->middleware = new PublishMiddleware($this->publisher);
     }
 
     /**
@@ -41,25 +40,6 @@ class ExchangeMiddlewareTest extends \PHPUnit_Framework_TestCase
             ->andReturn('rpc');
 
         $this->middleware->execute($message, $this->mockInvalidNext());
-    }
-
-    /**
-     * @test
-     */
-    public function it_should_wrap_a_amqp_envelope()
-    {
-        $nextWasCalled = false;
-
-        $command = Mockery::mock(\AMQPEnvelope::class);
-        $this->middleware->execute($command, function ($nextCommand) use ($command, &$nextWasCalled) {
-            \PHPUnit_Framework_Assert::assertInstanceOf(AMQPCommand::class, $nextCommand);
-            \PHPUnit_Framework_Assert::assertSame($command, $nextCommand->getEnvelope());
-            $nextWasCalled = true;
-        });
-
-        if (!$nextWasCalled) {
-            throw new \LogicException('Middleware should have called the next callable.');
-        }
     }
 
     /**
