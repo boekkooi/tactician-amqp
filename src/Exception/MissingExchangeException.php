@@ -6,7 +6,7 @@ use Boekkooi\Tactician\AMQP\Message;
 class MissingExchangeException extends \OutOfBoundsException implements Exception
 {
     /**
-     * @var string
+     * @var Message
      */
     protected $tacticianMessage;
 
