@@ -1,6 +1,10 @@
 filter:
-    paths: [src/*]
+  paths: [src/*]
+
 tools:
-    php_sim: true
-    php_pdepend: true
-    php_analyzer: true
+  php_sim: true
+  php_pdepend: true
+  php_analyzer: true
+  php_mess_detector: true
+  external_code_coverage:
+    timeout: '600'
