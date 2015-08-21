@@ -6,7 +6,7 @@ use Boekkooi\Tactician\AMQP\Message;
 use Boekkooi\Tactician\AMQP\Publisher\Publisher;
 use Mockery;
 
-class PublishMiddlewareTest extends \PHPUnit_Framework_TestCase
+class PublishMiddlewareTest extends MiddlewareTestCase
 {
     /**
      * @var PublishMiddleware
@@ -33,10 +33,16 @@ class PublishMiddlewareTest extends \PHPUnit_Framework_TestCase
 
         $this->publisher
             ->shouldReceive('publish')
+            ->once()
             ->with($message)
             ->andReturn('rpc');
 
-        $this->middleware->execute($message, $this->mockInvalidNext());
+        $this->middleware->execute(
+            $message,
+            function () {
+                throw new \LogicException('Middleware fell through to next callable, this should not happen in the test.');
+            }
+        );
     }
 
     /**
@@ -44,26 +50,7 @@ class PublishMiddlewareTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_continue_if_its_not_a_command()
     {
-        $nextWasCalled = false;
-
         $command = new \stdClass();
-        $this->middleware->execute($command, function ($nextCommand) use ($command, &$nextWasCalled) {
-            \PHPUnit_Framework_Assert::assertSame($command, $nextCommand);
-            $nextWasCalled = true;
-        });
-
-        if (!$nextWasCalled) {
-            throw new \LogicException('Middleware should have called the next callable.');
-        }
-    }
-
-    /**
-     * @return callable
-     */
-    protected function mockInvalidNext()
-    {
-        return function () {
-            throw new \LogicException('Middleware fell through to next callable, this should not happen in the test.');
-        };
+        $this->execute($this->middleware, $command, $command);
     }
 }

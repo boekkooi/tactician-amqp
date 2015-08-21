@@ -6,7 +6,7 @@ use Boekkooi\Tactician\AMQP\Middleware\EnvelopeTransformerMiddleware;
 use Boekkooi\Tactician\AMQP\Transformer\EnvelopeTransformer;
 use Mockery;
 
-class EnvelopeTransformerMiddlewareTest extends \PHPUnit_Framework_TestCase
+class EnvelopeTransformerMiddlewareTest extends MiddlewareTestCase
 {
     /**
      * @var EnvelopeTransformer|Mockery\MockInterface
@@ -32,18 +32,11 @@ class EnvelopeTransformerMiddlewareTest extends \PHPUnit_Framework_TestCase
     {
         $this->transformer
             ->shouldReceive('transformEnvelopeToCommand')
+            ->atLeast()->once()
             ->with($envelope)
             ->andReturn($command);
 
-        $nextWasCalled = false;
-        $this->middleware->execute($amqpCommand, function ($nextCommand) use ($command, &$nextWasCalled) {
-            \PHPUnit_Framework_Assert::assertSame($command, $nextCommand);
-            $nextWasCalled = true;
-        });
-
-        if (!$nextWasCalled) {
-            throw new \LogicException('Middleware should have called the next callable.');
-        }
+        $this->execute($this->middleware, $amqpCommand, $command);
     }
 
     /**
@@ -54,15 +47,7 @@ class EnvelopeTransformerMiddlewareTest extends \PHPUnit_Framework_TestCase
         $this->transformer->shouldNotReceive('transformEnvelopeToCommand');
 
         $command = new \stdClass();
-        $nextWasCalled = false;
-        $this->middleware->execute($command, function ($nextCommand) use ($command, &$nextWasCalled) {
-            \PHPUnit_Framework_Assert::assertSame($command, $nextCommand);
-            $nextWasCalled = true;
-        });
-
-        if (!$nextWasCalled) {
-            throw new \LogicException('Middleware should have called the next callable.');
-        }
+        $this->execute($this->middleware, $command, $command);
     }
 
     public function provide_envelope_command_map()

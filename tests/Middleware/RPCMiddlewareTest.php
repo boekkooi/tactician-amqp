@@ -8,7 +8,7 @@ use Boekkooi\Tactician\AMQP\Publisher\Publisher;
 use Boekkooi\Tactician\AMQP\Transformer\ResponseTransformer;
 use Mockery;
 
-class RPCMiddlewareTest extends \PHPUnit_Framework_TestCase
+class RPCMiddlewareTest extends MiddlewareTestCase
 {
     /**
      * @var RPCMiddlewarePatched
@@ -38,7 +38,7 @@ class RPCMiddlewareTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_publish_a_rpc_command_result()
     {
-        $commandResult = [ 'YAY' ];
+        $commandResult = ['YAY'];
         $resultMessage = Mockery::mock(Message::class);
 
         $envelope = Mockery::mock(\AMQPEnvelope::class);
@@ -62,17 +62,7 @@ class RPCMiddlewareTest extends \PHPUnit_Framework_TestCase
             ->once()
             ->with($resultMessage);
 
-        $nextWasCalled = false;
-        $this->middleware->execute($command, function ($nextCommand) use ($command, &$nextWasCalled, $commandResult) {
-            \PHPUnit_Framework_Assert::assertSame($command, $nextCommand);
-            $nextWasCalled = true;
-
-            return $commandResult;
-        });
-
-        if (!$nextWasCalled) {
-            throw new \LogicException('Middleware should have called the next callable.');
-        }
+        $this->execute($this->middleware, $command, $command, $commandResult);
     }
 
     /**
@@ -84,15 +74,7 @@ class RPCMiddlewareTest extends \PHPUnit_Framework_TestCase
         $this->publisher->shouldNotReceive('publish');
 
         $command = new \stdClass();
-        $nextWasCalled = false;
-        $this->middleware->execute($command, function ($nextCommand) use ($command, &$nextWasCalled) {
-            \PHPUnit_Framework_Assert::assertSame($command, $nextCommand);
-            $nextWasCalled = true;
-        });
-
-        if (!$nextWasCalled) {
-            throw new \LogicException('Middleware should have called the next callable.');
-        }
+        $this->execute($this->middleware, $command, $command);
     }
 
     /**
@@ -115,15 +97,7 @@ class RPCMiddlewareTest extends \PHPUnit_Framework_TestCase
             ->atLeast()->once()
             ->andReturn($envelope);
 
-        $nextWasCalled = false;
-        $this->middleware->execute($command, function ($nextCommand) use ($command, &$nextWasCalled) {
-            \PHPUnit_Framework_Assert::assertSame($command, $nextCommand);
-            $nextWasCalled = true;
-        });
-
-        if (!$nextWasCalled) {
-            throw new \LogicException('Middleware should have called the next callable.');
-        }
+        $this->execute($this->middleware, $command, $command);
     }
 }
 

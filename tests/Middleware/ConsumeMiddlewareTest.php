@@ -5,7 +5,7 @@ use Boekkooi\Tactician\AMQP\AMQPCommand;
 use Boekkooi\Tactician\AMQP\Middleware\ConsumeMiddleware;
 use Mockery;
 
-class ConsumeMiddlewareTest extends \PHPUnit_Framework_TestCase
+class ConsumeMiddlewareTest extends MiddlewareTestCase
 {
     /**
      * @var AMQPCommand
@@ -34,10 +34,9 @@ class ConsumeMiddlewareTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_ack_a_envelope_when_there_is_no_exception()
     {
-        $middleware = new ConsumeMiddleware();
-
         $this->queue
             ->shouldReceive('ack')
+            ->once()
             ->with('tag');
 
         $this->envelope
@@ -46,16 +45,9 @@ class ConsumeMiddlewareTest extends \PHPUnit_Framework_TestCase
             ->andReturn('tag');
 
         $command = $this->command;
-        $nextWasCalled = false;
+        $middleware = new ConsumeMiddleware();
 
-        $middleware->execute($command, function($nextCommand) use ($command, &$nextWasCalled) {
-            \PHPUnit_Framework_Assert::assertSame($command, $nextCommand);
-            $nextWasCalled = true;
-        });
-
-        if (!$nextWasCalled) {
-            throw new \LogicException('Middleware should have called the next callable.');
-        }
+        $this->execute($middleware, $command, $command);
     }
 
     /**
@@ -63,8 +55,6 @@ class ConsumeMiddlewareTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_requeue_a_envelope_when_there_is_a_exception()
     {
-        $this->setExpectedException(\RuntimeException::class, 'The queue should requeue the message now');
-
         $middleware = new ConsumeMiddleware(true);
 
         $this->queue
@@ -73,6 +63,7 @@ class ConsumeMiddlewareTest extends \PHPUnit_Framework_TestCase
 
         $this->queue
             ->shouldReceive('reject')
+            ->once()
             ->with('tag', AMQP_REQUEUE);
 
         $this->envelope
@@ -80,7 +71,8 @@ class ConsumeMiddlewareTest extends \PHPUnit_Framework_TestCase
             ->withNoArgs()
             ->andReturn('tag');
 
-        $middleware->execute($this->command, function() {
+        $this->setExpectedException(\RuntimeException::class, 'The queue should requeue the message now');
+        $middleware->execute($this->command, function () {
             throw new \RuntimeException('The queue should requeue the message now');
         });
     }
@@ -90,8 +82,6 @@ class ConsumeMiddlewareTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_reject_a_envelope_when_there_is_a_exception()
     {
-        $this->setExpectedException(\RuntimeException::class, 'The queue should reject the message now');
-
         $middleware = new ConsumeMiddleware(false);
 
         $this->queue
@@ -100,6 +90,7 @@ class ConsumeMiddlewareTest extends \PHPUnit_Framework_TestCase
 
         $this->queue
             ->shouldReceive('reject')
+            ->once()
             ->with('tag', AMQP_NOPARAM);
 
         $this->envelope
@@ -107,7 +98,8 @@ class ConsumeMiddlewareTest extends \PHPUnit_Framework_TestCase
             ->withNoArgs()
             ->andReturn('tag');
 
-        $middleware->execute($this->command, function() {
+        $this->setExpectedException(\RuntimeException::class, 'The queue should reject the message now');
+        $middleware->execute($this->command, function () {
             throw new \RuntimeException('The queue should reject the message now');
         });
     }
@@ -117,27 +109,9 @@ class ConsumeMiddlewareTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_pass_trough_none_amqp_command()
     {
+        $command = new \stdClass();
         $middleware = new ConsumeMiddleware();
 
-        $command = new \stdClass();
-        $nextWasCalled = false;
-        $middleware->execute($command, function ($nextCommand) use ($command, &$nextWasCalled) {
-            \PHPUnit_Framework_Assert::assertSame($command, $nextCommand);
-            $nextWasCalled = true;
-        });
-
-        if (!$nextWasCalled) {
-            throw new \LogicException('Middleware should have called the next callable.');
-        }
-    }
-
-    /**
-     * @return callable
-     */
-    protected function mockInvalidNext()
-    {
-        return function () {
-            throw new \LogicException('Middleware fell through to next callable, this should not happen in the test.');
-        };
+        $this->execute($middleware, $command, $command);
     }
 }

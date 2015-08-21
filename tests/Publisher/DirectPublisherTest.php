@@ -36,6 +36,7 @@ class DirectPublisherTest extends \PHPUnit_Framework_TestCase
 
         $this->exchange
             ->shouldReceive('publish')
+            ->once()
             ->with(
                 $message->getMessage(),
                 $message->getRoutingKey(),
@@ -58,6 +59,7 @@ class DirectPublisherTest extends \PHPUnit_Framework_TestCase
 
         $this->exchange
             ->shouldReceive('publish')
+            ->once()
             ->with(
                 $message->getMessage(),
                 $message->getRoutingKey(),
@@ -78,6 +80,7 @@ class DirectPublisherTest extends \PHPUnit_Framework_TestCase
 
         $this->exchange
             ->shouldReceive('publish')
+            ->once()
             ->andThrow(\AMQPExchangeException::class);
 
         try {

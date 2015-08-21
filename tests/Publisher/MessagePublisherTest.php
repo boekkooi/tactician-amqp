@@ -41,6 +41,7 @@ class MessagePublisherTest extends \PHPUnit_Framework_TestCase
 
         $this->locator
             ->shouldReceive('getExchangeForMessage')
+            ->atLeast()->once()
             ->with($message)
             ->andReturn($exchange);
 
@@ -58,6 +59,7 @@ class MessagePublisherTest extends \PHPUnit_Framework_TestCase
 
         $this->locator
             ->shouldReceive('getExchangeForMessage')
+            ->atLeast()->once()
             ->with($message)
             ->andReturn(null);
 
@@ -76,6 +78,7 @@ class MessagePublisherTest extends \PHPUnit_Framework_TestCase
 
         $this->locator
             ->shouldReceive('getExchangeForMessage')
+            ->atLeast()->once()
             ->with($message)
             ->andReturn($exchange);
 
@@ -91,6 +94,7 @@ class MessagePublisherTest extends \PHPUnit_Framework_TestCase
 
         $exchange = Mockery::mock(\AMQPExchange::class);
         $exchange->shouldReceive('publish')
+            ->once()
             ->with(
                 $message->getMessage(),
                 $message->getRoutingKey(),
@@ -101,6 +105,7 @@ class MessagePublisherTest extends \PHPUnit_Framework_TestCase
 
         $this->locator
             ->shouldReceive('getExchangeForMessage')
+            ->atLeast()->once()
             ->with($message)
             ->andReturn($exchange);
 
@@ -134,6 +139,7 @@ class MessagePublisherTest extends \PHPUnit_Framework_TestCase
         $exchange = Mockery::mock(\AMQPExchange::class);
         $exchange
             ->shouldReceive('publish')
+            ->once()
             ->with(
                 $message->getMessage(),
                 $message->getRoutingKey(),
