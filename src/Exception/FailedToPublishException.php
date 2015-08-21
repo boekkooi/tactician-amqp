@@ -11,6 +11,14 @@ class FailedToPublishException extends \RuntimeException implements Exception
     protected $tacticianMessage;
 
     /**
+     * @return Message
+     */
+    public function getTacticianMessage()
+    {
+        return $this->tacticianMessage;
+    }
+
+    /**
      * @param Message $message
      *
      * @return static
@@ -35,13 +43,5 @@ class FailedToPublishException extends \RuntimeException implements Exception
         $exception->tacticianMessage = $message;
 
         return $exception;
-    }
-
-    /**
-     * @return Message
-     */
-    public function getTacticianMessage()
-    {
-        return $this->tacticianMessage;
     }
 }

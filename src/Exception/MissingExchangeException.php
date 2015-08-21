@@ -11,6 +11,14 @@ class MissingExchangeException extends \OutOfBoundsException implements Exceptio
     protected $tacticianMessage;
 
     /**
+     * @return Message
+     */
+    public function getTacticianMessage()
+    {
+        return $this->tacticianMessage;
+    }
+
+    /**
      * @param Message $message
      *
      * @return static
@@ -21,13 +29,5 @@ class MissingExchangeException extends \OutOfBoundsException implements Exceptio
         $exception->tacticianMessage = $message;
 
         return $exception;
-    }
-
-    /**
-     * @return Message
-     */
-    public function getTacticianMessage()
-    {
-        return $this->tacticianMessage;
     }
 }

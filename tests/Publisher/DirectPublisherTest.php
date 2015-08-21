@@ -53,8 +53,6 @@ class DirectPublisherTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_throw_a_exception_when_publish_fails()
     {
-        $this->setExpectedException(FailedToPublishException::class);
-
         $message = new MessageCommand('message');
 
         $this->exchange
@@ -68,6 +66,7 @@ class DirectPublisherTest extends \PHPUnit_Framework_TestCase
             )
             ->andReturn(false);
 
+        $this->setExpectedException(FailedToPublishException::class);
         $this->publisher->publish($message);
     }
 
@@ -93,6 +92,7 @@ class DirectPublisherTest extends \PHPUnit_Framework_TestCase
                 $e->getPrevious(),
                 'Expected the previous exception to be the throw to be a \AMQPExchangeException'
             );
+            $this->assertEquals($message, $e->getTacticianMessage());
             return;
         } catch (\Exception $e) {
             $this->fail(sprintf(

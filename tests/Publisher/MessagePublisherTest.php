@@ -53,8 +53,6 @@ class MessagePublisherTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_throw_a_exception_when_locater_returns_no_exchange()
     {
-        $this->setExpectedException(MissingExchangeException::class);
-
         $message = new MessageCommand('message');
 
         $this->locator
@@ -63,6 +61,7 @@ class MessagePublisherTest extends \PHPUnit_Framework_TestCase
             ->with($message)
             ->andReturn(null);
 
+        $this->setExpectedException(MissingExchangeException::class);
         $this->publisher->publish($message);
     }
 
@@ -71,8 +70,6 @@ class MessagePublisherTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_throw_a_exception_when_publish_fails()
     {
-        $this->setExpectedException(FailedToPublishException::class);
-
         $message = new MessageCommand('message');
         $exchange = $this->mockExchangeWithPublish($message, false);
 
@@ -82,6 +79,7 @@ class MessagePublisherTest extends \PHPUnit_Framework_TestCase
             ->with($message)
             ->andReturn($exchange);
 
+        $this->setExpectedException(FailedToPublishException::class);
         $this->publisher->publish($message);
     }
 
