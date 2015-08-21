@@ -3,6 +3,8 @@ language: php
 php:
   - 5.5
   - 5.6
+  - 7.0
+  - hhvm
 
 matrix:
   include:
@@ -10,6 +12,9 @@ matrix:
       env:
         - COMPOSER_FLAGS="--prefer-stable --prefer-lowest"
         - COVERAGE="--coverage-clover=coverage.xml"
+  allow_failures:
+    - php: hhvm
+    - php: 7.0
 
 install:
   - echo "extension = amqp.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
