@@ -13,14 +13,13 @@ use League\Tactician\Middleware;
 class CommandTransformerMiddleware implements Middleware
 {
     /**
-     * @var string[]
-     */
-    private $commands;
-
-    /**
      * @var CommandTransformer
      */
     private $transformer;
+    /**
+     * @var string[]
+     */
+    private $commands = [];
 
     /**
      * @param CommandTransformer $transformer
