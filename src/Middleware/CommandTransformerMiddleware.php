@@ -28,8 +28,8 @@ class CommandTransformerMiddleware implements Middleware
      */
     public function __construct(CommandTransformer $transformer, array $commands = [])
     {
-        $this->commands = $commands;
         $this->transformer = $transformer;
+        $this->addSupportedCommands($commands);
     }
 
     /**
