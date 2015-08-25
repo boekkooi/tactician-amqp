@@ -1,11 +1,11 @@
 <?php
 namespace Boekkooi\Tactician\AMQP\Middleware;
 
-use Boekkooi\Tactician\AMQP\AMQPCommand;
+use Boekkooi\Tactician\AMQP\Command;
 use League\Tactician\Middleware;
 
 /**
- * A middleware that will ack or reject a AMQPCommand envelope
+ * A middleware that will ack or reject a AMQP command envelope
  */
 class ConsumeMiddleware implements Middleware
 {
@@ -24,7 +24,7 @@ class ConsumeMiddleware implements Middleware
      */
     public function execute($command, callable $next)
     {
-        if (!$command instanceof AMQPCommand) {
+        if (!$command instanceof Command) {
             return $next($command);
         }
 

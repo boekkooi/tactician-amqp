@@ -1,14 +1,14 @@
 <?php
 namespace Tests\Boekkooi\Tactician\AMQP\Middleware;
 
-use Boekkooi\Tactician\AMQP\AMQPCommand;
+use Boekkooi\Tactician\AMQP\Command;
 use Boekkooi\Tactician\AMQP\Middleware\ConsumeMiddleware;
 use Mockery;
 
 class ConsumeMiddlewareTest extends MiddlewareTestCase
 {
     /**
-     * @var AMQPCommand
+     * @var Command
      */
     private $command;
 
@@ -26,7 +26,7 @@ class ConsumeMiddlewareTest extends MiddlewareTestCase
     {
         $this->queue = Mockery::mock(\AMQPQueue::class);
         $this->envelope = Mockery::mock(\AMQPEnvelope::class);
-        $this->command = new AMQPCommand($this->envelope, $this->queue);
+        $this->command = new Command($this->envelope, $this->queue);
     }
 
     /**

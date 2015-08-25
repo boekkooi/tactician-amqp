@@ -1,7 +1,7 @@
 <?php
 namespace Tests\Boekkooi\Tactician\AMQP\Middleware;
 
-use Boekkooi\Tactician\AMQP\AMQPCommand;
+use Boekkooi\Tactician\AMQP\Command;
 use Boekkooi\Tactician\AMQP\Middleware\EnvelopeTransformerMiddleware;
 use Boekkooi\Tactician\AMQP\Transformer\EnvelopeTransformer;
 use Mockery;
@@ -56,7 +56,7 @@ class EnvelopeTransformerMiddlewareTest extends MiddlewareTestCase
         $env2 = Mockery::mock(\AMQPEnvelope::class);
         return [
             [ $env1, $env1, new \stdClass() ],
-            [ new AMQPCommand($env2, Mockery::mock(\AMQPQueue::class)), $env2, 'a_command' ]
+            [ new Command($env2, Mockery::mock(\AMQPQueue::class)), $env2, 'a_command' ]
         ];
     }
 }

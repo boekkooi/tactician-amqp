@@ -6,7 +6,7 @@ namespace Boekkooi\Tactician\AMQP;
  *
  * @final
  */
-class AMQPCommand
+class Command
 {
     /**
      * @var \AMQPEnvelope

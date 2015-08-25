@@ -1,7 +1,7 @@
 <?php
 namespace Tests\Boekkooi\Tactician\AMQP\Middleware;
 
-use Boekkooi\Tactician\AMQP\AMQPCommand;
+use Boekkooi\Tactician\AMQP\Command;
 use Boekkooi\Tactician\AMQP\Message;
 use Boekkooi\Tactician\AMQP\Middleware\RPCMiddleware;
 use Boekkooi\Tactician\AMQP\Publisher\Publisher;
@@ -46,7 +46,7 @@ class RPCMiddlewareTest extends MiddlewareTestCase
             ->shouldReceive('getReplyTo')
             ->atLeast()->once()
             ->andReturn('my-reply-id');
-        $command = Mockery::mock(AMQPCommand::class);
+        $command = Mockery::mock(Command::class);
         $command
             ->shouldReceive('getEnvelope')
             ->atLeast()->once()
@@ -91,7 +91,7 @@ class RPCMiddlewareTest extends MiddlewareTestCase
             ->atLeast()->once()
             ->andReturn('');
 
-        $command = Mockery::mock(AMQPCommand::class);
+        $command = Mockery::mock(Command::class);
         $command
             ->shouldReceive('getEnvelope')
             ->atLeast()->once()
@@ -110,7 +110,7 @@ class RPCMiddlewarePatched extends RPCMiddleware
         $this->publisher = $publisher;
     }
 
-    protected function getPublisher(AMQPCommand $command)
+    protected function getPublisher(Command $command)
     {
         return $this->publisher;
     }

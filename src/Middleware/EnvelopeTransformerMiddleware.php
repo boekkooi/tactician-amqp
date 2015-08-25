@@ -1,7 +1,7 @@
 <?php
 namespace Boekkooi\Tactician\AMQP\Middleware;
 
-use Boekkooi\Tactician\AMQP\AMQPCommand;
+use Boekkooi\Tactician\AMQP\Command;
 use Boekkooi\Tactician\AMQP\Transformer\EnvelopeTransformer;
 use League\Tactician\Middleware;
 
@@ -28,7 +28,7 @@ class EnvelopeTransformerMiddleware implements Middleware
      */
     public function execute($command, callable $next)
     {
-        if ($command instanceof AMQPCommand) {
+        if ($command instanceof Command) {
             $command = $this->transformer->transformEnvelopeToCommand($command->getEnvelope());
         } elseif ($command instanceof \AMQPEnvelope) {
             $command = $this->transformer->transformEnvelopeToCommand($command);

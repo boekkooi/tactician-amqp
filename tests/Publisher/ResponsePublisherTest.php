@@ -1,7 +1,7 @@
 <?php
 namespace Tests\Boekkooi\Tactician\AMQP\Publisher;
 
-use Boekkooi\Tactician\AMQP\AMQPCommand;
+use Boekkooi\Tactician\AMQP\Command;
 use Boekkooi\Tactician\AMQP\Exception\FailedToPublishException;
 use Boekkooi\Tactician\AMQP\Exception\InvalidArgumentException;
 use Boekkooi\Tactician\AMQP\Message;
@@ -95,7 +95,7 @@ class ResponsePublisherTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('getChannel')
             ->andReturn($channel);
 
-        return new AMQPCommand($envelope, $queue);
+        return new Command($envelope, $queue);
     }
 }
 

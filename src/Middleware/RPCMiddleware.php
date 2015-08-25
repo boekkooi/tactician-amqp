@@ -1,7 +1,7 @@
 <?php
 namespace Boekkooi\Tactician\AMQP\Middleware;
 
-use Boekkooi\Tactician\AMQP\AMQPCommand;
+use Boekkooi\Tactician\AMQP\Command;
 use Boekkooi\Tactician\AMQP\Publisher\Publisher;
 use Boekkooi\Tactician\AMQP\Publisher\ResponsePublisher;
 use Boekkooi\Tactician\AMQP\Transformer\ResponseTransformer;
@@ -28,7 +28,7 @@ class RPCMiddleware implements Middleware
     public function execute($command, callable $next)
     {
         // Check that the command expects a response
-        if (!$command instanceof AMQPCommand || empty($command->getEnvelope()->getReplyTo())) {
+        if (!$command instanceof Command || empty($command->getEnvelope()->getReplyTo())) {
             return $next($command);
         }
 
@@ -48,10 +48,10 @@ class RPCMiddleware implements Middleware
     /**
      * Get a publisher for the provided command
      *
-     * @param AMQPCommand $command
+     * @param Command $command
      * @return Publisher
      */
-    protected function getPublisher(AMQPCommand $command)
+    protected function getPublisher(Command $command)
     {
         return new ResponsePublisher($command);
     }
