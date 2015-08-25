@@ -21,11 +21,7 @@ abstract class ExchangePublisher implements Publisher
         }
 
         try {
-            $isPublished = $this->publishToExchange($message, $exchange);
-
-            if (!$isPublished) {
-                throw FailedToPublishException::fromMessage($message);
-            }
+            return $this->publishToExchange($message, $exchange);
         } catch (\AMQPException $e) {
             throw FailedToPublishException::fromException($message, $e);
         }
@@ -41,12 +37,18 @@ abstract class ExchangePublisher implements Publisher
      */
     protected function publishToExchange(Message $message, \AMQPExchange $exchange)
     {
-        return $exchange->publish(
+        $isPublished = $exchange->publish(
             $message->getMessage(),
             $message->getRoutingKey(),
             $message->getFlags(),
             $message->getAttributes()
         );
+
+        if (!$isPublished) {
+            throw FailedToPublishException::fromMessage($message);
+        }
+
+        return $isPublished;
     }
 
     /**

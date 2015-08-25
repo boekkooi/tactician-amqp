@@ -2,6 +2,7 @@
 namespace Boekkooi\Tactician\AMQP\Publisher;
 
 use Boekkooi\Tactician\AMQP\Command;
+use Boekkooi\Tactician\AMQP\Exception\FailedToPublishException;
 use Boekkooi\Tactician\AMQP\Exception\InvalidArgumentException;
 use Boekkooi\Tactician\AMQP\Message;
 
@@ -39,12 +40,18 @@ class RemoteProcedureResponsePublisher extends ExchangePublisher
         $attributes = (array)$message->getAttributes();
         $attributes['correlation_id'] = $this->correlationId;
 
-        return $exchange->publish(
+        $isPublished = $exchange->publish(
             $message->getMessage(),
             $this->routingKey,
             $message->getFlags(),
             $attributes
         );
+
+        if (!$isPublished) {
+            throw FailedToPublishException::fromMessage($message);
+        }
+
+        return $isPublished;
     }
 
     /**
