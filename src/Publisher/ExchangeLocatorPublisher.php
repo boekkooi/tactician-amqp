@@ -7,7 +7,7 @@ use Boekkooi\Tactician\AMQP\Message;
 /**
  * A message publisher that will use a exchange locator to publish a message
  */
-class MessagePublisher extends ExchangePublisher
+class ExchangeLocatorPublisher extends ExchangePublisher
 {
     /**
      * @var ExchangeLocator

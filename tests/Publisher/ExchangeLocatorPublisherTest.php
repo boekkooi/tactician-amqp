@@ -5,11 +5,11 @@ use Boekkooi\Tactician\AMQP\Exception\MissingExchangeException;
 use Boekkooi\Tactician\AMQP\Message;
 use Boekkooi\Tactician\AMQP\Exception\FailedToPublishException;
 use Boekkooi\Tactician\AMQP\ExchangeLocator\ExchangeLocator;
-use Boekkooi\Tactician\AMQP\Publisher\MessagePublisher;
+use Boekkooi\Tactician\AMQP\Publisher\ExchangeLocatorPublisher;
 use Tests\Boekkooi\Tactician\AMQP\Fixtures\Command\MessageCommand;
 use Mockery;
 
-class MessagePublisherTest extends \PHPUnit_Framework_TestCase
+class ExchangeLocatorPublisherTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var ExchangeLocator|Mockery\MockInterface
@@ -17,7 +17,7 @@ class MessagePublisherTest extends \PHPUnit_Framework_TestCase
     private $locator;
 
     /**
-     * @var MessagePublisher
+     * @var ExchangeLocatorPublisher
      */
     private $publisher;
 
@@ -27,7 +27,7 @@ class MessagePublisherTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->locator = Mockery::mock(ExchangeLocator::class);
-        $this->publisher = new MessagePublisher($this->locator);
+        $this->publisher = new ExchangeLocatorPublisher($this->locator);
     }
 
     /**
