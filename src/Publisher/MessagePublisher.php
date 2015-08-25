@@ -1,7 +1,7 @@
 <?php
 namespace Boekkooi\Tactician\AMQP\Publisher;
 
-use Boekkooi\Tactician\AMQP\Publisher\Locator\ExchangeLocator;
+use Boekkooi\Tactician\AMQP\ExchangeLocator\ExchangeLocator;
 use Boekkooi\Tactician\AMQP\Message;
 
 /**

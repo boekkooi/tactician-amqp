@@ -1,8 +1,8 @@
 <?php
-namespace Tests\Boekkooi\Tactician\AMQP\Publisher\Locator;
+namespace Tests\Boekkooi\Tactician\AMQP\ExchangeLocator;
 
 use Boekkooi\Tactician\AMQP\Exception\MissingExchangeException;
-use Boekkooi\Tactician\AMQP\Publisher\Locator\InMemoryLocator;
+use Boekkooi\Tactician\AMQP\ExchangeLocator\InMemoryLocator;
 use Tests\Boekkooi\Tactician\AMQP\Fixtures\Command\AnotherMessageCommand;
 use Tests\Boekkooi\Tactician\AMQP\Fixtures\Command\MessageCommand;
 use Mockery;
