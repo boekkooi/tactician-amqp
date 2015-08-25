@@ -10,7 +10,7 @@ use League\Tactician\Middleware;
 /**
  * A middleware that will handle a AMQP RPC (Remote Procedure Call) command/envelope response
  */
-class RPCMiddleware implements Middleware
+class RemoteResponseMiddleware implements Middleware
 {
     /**
      * @var ResponseTransformer

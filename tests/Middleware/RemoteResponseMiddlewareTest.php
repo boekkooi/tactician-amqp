@@ -3,12 +3,12 @@ namespace Tests\Boekkooi\Tactician\AMQP\Middleware;
 
 use Boekkooi\Tactician\AMQP\Command;
 use Boekkooi\Tactician\AMQP\Message;
-use Boekkooi\Tactician\AMQP\Middleware\RPCMiddleware;
+use Boekkooi\Tactician\AMQP\Middleware\RemoteResponseMiddleware;
 use Boekkooi\Tactician\AMQP\Publisher\Publisher;
 use Boekkooi\Tactician\AMQP\Transformer\ResponseTransformer;
 use Mockery;
 
-class RPCMiddlewareTest extends MiddlewareTestCase
+class RemoteResponseMiddlewareTest extends MiddlewareTestCase
 {
     /**
      * @var RPCMiddlewarePatched
@@ -101,7 +101,7 @@ class RPCMiddlewareTest extends MiddlewareTestCase
     }
 }
 
-class RPCMiddlewarePatched extends RPCMiddleware
+class RPCMiddlewarePatched extends RemoteResponseMiddleware
 {
     private $publisher;
 
