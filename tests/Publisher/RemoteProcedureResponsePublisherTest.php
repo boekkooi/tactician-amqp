@@ -5,11 +5,11 @@ use Boekkooi\Tactician\AMQP\Command;
 use Boekkooi\Tactician\AMQP\Exception\FailedToPublishException;
 use Boekkooi\Tactician\AMQP\Exception\InvalidArgumentException;
 use Boekkooi\Tactician\AMQP\Message;
-use Boekkooi\Tactician\AMQP\Publisher\ResponsePublisher;
+use Boekkooi\Tactician\AMQP\Publisher\RemoteProcedureResponsePublisher;
 use Mockery;
 use Tests\Boekkooi\Tactician\AMQP\Fixtures\Command\MessageCommand;
 
-class ResponsePublisherTest extends \PHPUnit_Framework_TestCase
+class RemoteProcedureResponsePublisherTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
@@ -47,7 +47,7 @@ class ResponsePublisherTest extends \PHPUnit_Framework_TestCase
         $command = $this->mockCommand('', '', Mockery::mock(\AMQPChannel::class));
 
         $this->setExpectedException(InvalidArgumentException::class, 'reply-to');
-        new ResponsePublisher($command);
+        new RemoteProcedureResponsePublisher($command);
     }
 
     /**
@@ -99,7 +99,7 @@ class ResponsePublisherTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-class ResponsePublisherPatched extends ResponsePublisher
+class ResponsePublisherPatched extends RemoteProcedureResponsePublisher
 {
     private $exchange = null;
 

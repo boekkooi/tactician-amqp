@@ -3,7 +3,7 @@ namespace Boekkooi\Tactician\AMQP\Middleware;
 
 use Boekkooi\Tactician\AMQP\Command;
 use Boekkooi\Tactician\AMQP\Publisher\Publisher;
-use Boekkooi\Tactician\AMQP\Publisher\ResponsePublisher;
+use Boekkooi\Tactician\AMQP\Publisher\RemoteProcedureResponsePublisher;
 use Boekkooi\Tactician\AMQP\Transformer\ResponseTransformer;
 use League\Tactician\Middleware;
 
@@ -53,6 +53,6 @@ class RPCMiddleware implements Middleware
      */
     protected function getPublisher(Command $command)
     {
-        return new ResponsePublisher($command);
+        return new RemoteProcedureResponsePublisher($command);
     }
 }

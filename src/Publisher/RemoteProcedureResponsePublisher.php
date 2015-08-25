@@ -1,14 +1,14 @@
 <?php
 namespace Boekkooi\Tactician\AMQP\Publisher;
 
-use Boekkooi\Tactician\AMQP\AMQPCommand;
+use Boekkooi\Tactician\AMQP\Command;
 use Boekkooi\Tactician\AMQP\Exception\InvalidArgumentException;
 use Boekkooi\Tactician\AMQP\Message;
 
 /**
- * A publisher for a AMQPCommand response.
+ * A publisher for a RPC response.
  */
-class ResponsePublisher extends ExchangePublisher
+class RemoteProcedureResponsePublisher extends ExchangePublisher
 {
     /**
      * @var \AMQPChannel
@@ -23,7 +23,7 @@ class ResponsePublisher extends ExchangePublisher
      */
     private $correlationId;
 
-    public function __construct(AMQPCommand $command)
+    public function __construct(Command $command)
     {
         if (empty($command->getEnvelope()->getReplyTo())) {
             throw InvalidArgumentException::forMissingCommandReplyTo($command);
