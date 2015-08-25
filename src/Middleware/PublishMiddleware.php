@@ -2,8 +2,8 @@
 namespace Boekkooi\Tactician\AMQP\Middleware;
 
 use Boekkooi\Tactician\AMQP\Message;
+use Boekkooi\Tactician\AMQP\Publisher\Locator\PublisherLocator;
 use League\Tactician\Middleware;
-use Boekkooi\Tactician\AMQP\Publisher\Publisher;
 
 /**
  * A middleware that will publish AMQP message to a publisher
@@ -11,16 +11,16 @@ use Boekkooi\Tactician\AMQP\Publisher\Publisher;
 class PublishMiddleware implements Middleware
 {
     /**
-     * @var Publisher
+     * @var PublisherLocator
      */
-    private $publisher;
+    private $locator;
 
     /**
-     * @param Publisher $publisher
+     * @param PublisherLocator $locator
      */
-    public function __construct(Publisher $publisher)
+    public function __construct(PublisherLocator $locator)
     {
-        $this->publisher = $publisher;
+        $this->locator = $locator;
     }
 
     /**
@@ -28,10 +28,12 @@ class PublishMiddleware implements Middleware
      */
     public function execute($command, callable $next)
     {
-        if ($command instanceof Message) {
-            return $this->publisher->publish($command);
+        if (!$command instanceof Message) {
+            return $next($command);
         }
 
-        return $next($command);
+        return $this->locator
+            ->getPublisherForMessage($command)
+            ->publish($command);
     }
 }
