@@ -6,7 +6,7 @@ use Boekkooi\Tactician\AMQP\Message;
 /**
  * A publisher that uses a single exchange
  */
-class DirectPublisher extends ExchangePublisher
+class ExchangeDirectPublisher extends ExchangePublisher
 {
     /**
      * @var \AMQPExchange

@@ -2,11 +2,11 @@
 namespace Tests\Boekkooi\Tactician\AMQP\Publisher;
 
 use Boekkooi\Tactician\AMQP\Exception\FailedToPublishException;
-use Boekkooi\Tactician\AMQP\Publisher\DirectPublisher;
+use Boekkooi\Tactician\AMQP\Publisher\ExchangeDirectPublisher;
 use Tests\Boekkooi\Tactician\AMQP\Fixtures\Command\MessageCommand;
 use Mockery;
 
-class DirectPublisherTest extends \PHPUnit_Framework_TestCase
+class ExchangeDirectPublisherTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \AMQPExchange|Mockery\MockInterface
@@ -14,7 +14,7 @@ class DirectPublisherTest extends \PHPUnit_Framework_TestCase
     private $exchange;
 
     /**
-     * @var DirectPublisher
+     * @var ExchangeDirectPublisher
      */
     private $publisher;
 
@@ -24,7 +24,7 @@ class DirectPublisherTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->exchange = Mockery::mock(\AMQPExchange::class);
-        $this->publisher = new DirectPublisher($this->exchange);
+        $this->publisher = new ExchangeDirectPublisher($this->exchange);
     }
 
     /**
