@@ -3,6 +3,7 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://img.shields.io/travis/boekkooi/tactician-amqp/master.svg?style=flat-square)](https://travis-ci.org/boekkooi/tactician-amqp)
 [![Total Downloads](https://img.shields.io/packagist/dt/boekkooi/tactician-amqp.svg?style=flat-square)](https://packagist.org/packages/boekkooi/tactician-amqp)
+[![Reference Status](https://www.versioneye.com/php/boekkooi:tactician-amqp/reference_badge.svg?style=flat)](https://www.versioneye.com/php/boekkooi:tactician-amqp/references)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/437a6de0-d13a-4426-8f3c-284e472946d7/mini.png)](https://insight.sensiolabs.com/projects/437a6de0-d13a-4426-8f3c-284e472946d7)
 
 **AMQP command bus plugin for [Tactician](http://tactician.thephpleague.com) using [php-amqp](https://github.com/pdezwart/php-amqp).**
