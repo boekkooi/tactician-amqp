@@ -18,9 +18,6 @@ class ExchangeDirectPublisherTest extends \PHPUnit_Framework_TestCase
      */
     private $publisher;
 
-    /**
-     * @test
-     */
     public function setUp()
     {
         $this->exchange = Mockery::mock(\AMQPExchange::class);

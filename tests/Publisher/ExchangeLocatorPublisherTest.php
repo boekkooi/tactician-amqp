@@ -21,9 +21,6 @@ class ExchangeLocatorPublisherTest extends \PHPUnit_Framework_TestCase
      */
     private $publisher;
 
-    /**
-     * @test
-     */
     public function setUp()
     {
         $this->locator = Mockery::mock(ExchangeLocator::class);
