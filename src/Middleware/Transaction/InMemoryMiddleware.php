@@ -1,4 +1,4 @@
-<?php declare (strict_types = 1);
+<?php
 namespace Boekkooi\Tactician\AMQP\Middleware\Transaction;
 
 use Boekkooi\Tactician\AMQP\Message;
