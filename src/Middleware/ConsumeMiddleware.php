@@ -43,6 +43,13 @@ class ConsumeMiddleware implements Middleware
             );
 
             throw $e;
+        } catch (\Error $e) {
+            $queue->reject(
+                $deliveryTag,
+                ($this->requeue ? AMQP_REQUEUE : AMQP_NOPARAM)
+            );
+
+            throw $e;
         }
     }
 }
