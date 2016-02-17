@@ -31,46 +31,46 @@ class InMemoryMiddlewareTest extends MiddlewareTestCase
         $this->middleware = new InMemoryMiddleware($this->capturer, $this->locator);
     }
 
-//    /**
-//     * @test
-//     */
-//    public function it_publishes_it_messages_that_where_captured()
-//    {
-//        $messages = [
-//            Mockery::mock(Message::class),
-//            Mockery::mock(Message::class),
-//            Mockery::mock(Message::class)
-//        ];
-//
-//        $this->capturer->shouldNotReceive('clear');
-//        $this->capturer
-//            ->shouldReceive('fetchMessages')
-//            ->withNoArgs()
-//            ->once()
-//            ->andReturn($messages);
-//
-//        $this->mockMessagePublish($messages);
-//
-//        $this->execute($this->middleware, 'some_command', 'some_command');
-//    }
-//
-//    /**
-//     * @test
-//     */
-//    public function it_discards_messages_that_where_captured_when_a_exception_occured()
-//    {
-//        $this->capturer
-//            ->shouldReceive('clear')
-//            ->withNoArgs()
-//            ->once();
-//        $this->capturer->shouldNotReceive('fetchMessages');
-//
-//        $this->setExpectedException(\RuntimeException::class, 'Failed');
-//
-//        $this->middleware->execute('some_command', function() {
-//            throw new \RuntimeException('Failed');
-//        });
-//    }
+    /**
+     * @test
+     */
+    public function it_publishes_it_messages_that_where_captured()
+    {
+        $messages = [
+            Mockery::mock(Message::class),
+            Mockery::mock(Message::class),
+            Mockery::mock(Message::class)
+        ];
+
+        $this->capturer->shouldNotReceive('clear');
+        $this->capturer
+            ->shouldReceive('fetchMessages')
+            ->withNoArgs()
+            ->once()
+            ->andReturn($messages);
+
+        $this->mockMessagePublish($messages);
+
+        $this->execute($this->middleware, 'some_command', 'some_command');
+    }
+
+    /**
+     * @test
+     */
+    public function it_discards_messages_that_where_captured_when_a_exception_occured()
+    {
+        $this->capturer
+            ->shouldReceive('clear')
+            ->withNoArgs()
+            ->once();
+        $this->capturer->shouldNotReceive('fetchMessages');
+
+        $this->setExpectedException(\RuntimeException::class, 'Failed');
+
+        $this->middleware->execute('some_command', function () {
+            throw new \RuntimeException('Failed');
+        });
+    }
 
     /**
      * @test
