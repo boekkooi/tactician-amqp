@@ -1,15 +1,16 @@
 <?php
-namespace Boekkooi\Tactician\AMQP\Publisher;
+namespace Boekkooi\Tactician\AMQP\Publisher\RemoteProcedure;
 
 use Boekkooi\Tactician\AMQP\Exception\FailedToPublishException;
 use Boekkooi\Tactician\AMQP\Exception\NoResponseException;
 use Boekkooi\Tactician\AMQP\ExchangeLocator\ExchangeLocator;
 use Boekkooi\Tactician\AMQP\Message;
+use Boekkooi\Tactician\AMQP\Publisher\ExchangeLocatorPublisher;
 
 /**
  * A RPC command publisher
  */
-class RemoteProcedureCommandPublisher extends ExchangeLocatorPublisher
+class CommandPublisher extends ExchangeLocatorPublisher
 {
     /**
      * @var int

@@ -1,15 +1,16 @@
 <?php
-namespace Boekkooi\Tactician\AMQP\Publisher;
+namespace Boekkooi\Tactician\AMQP\Publisher\RemoteProcedure;
 
 use Boekkooi\Tactician\AMQP\Command;
 use Boekkooi\Tactician\AMQP\Exception\FailedToPublishException;
 use Boekkooi\Tactician\AMQP\Exception\InvalidArgumentException;
 use Boekkooi\Tactician\AMQP\Message;
+use Boekkooi\Tactician\AMQP\Publisher\ExchangePublisher;
 
 /**
  * A publisher for a RPC response.
  */
-class RemoteProcedureResponsePublisher extends ExchangePublisher
+class ResponsePublisher extends ExchangePublisher
 {
     /**
      * @var \AMQPChannel

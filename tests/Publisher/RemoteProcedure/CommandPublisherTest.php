@@ -1,14 +1,14 @@
 <?php
-namespace Tests\Boekkooi\Tactician\AMQP\Publisher;
+namespace Tests\Boekkooi\Tactician\AMQP\Publisher\RemoteProcedure;
 
 use Boekkooi\Tactician\AMQP\Exception\FailedToPublishException;
 use Boekkooi\Tactician\AMQP\Exception\NoResponseException;
 use Boekkooi\Tactician\AMQP\ExchangeLocator\ExchangeLocator;
 use Boekkooi\Tactician\AMQP\Message;
-use Boekkooi\Tactician\AMQP\Publisher\RemoteProcedureCommandPublisher;
+use Boekkooi\Tactician\AMQP\Publisher\RemoteProcedure\CommandPublisher;
 use Mockery;
 
-class RemoteProcedureCommandPublisherTest extends \PHPUnit_Framework_TestCase
+class CommandPublisherTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
@@ -250,7 +250,7 @@ class RemoteProcedureCommandPublisherTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-class RemoteProcedureCommandPublisherPatched extends RemoteProcedureCommandPublisher
+class RemoteProcedureCommandPublisherPatched extends CommandPublisher
 {
     private $queue;
 
