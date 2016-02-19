@@ -5,6 +5,7 @@ use Boekkooi\Tactician\AMQP\Command;
 use Boekkooi\Tactician\AMQP\Message;
 use Boekkooi\Tactician\AMQP\Middleware\RemoteResponseMiddleware;
 use Boekkooi\Tactician\AMQP\Publisher\Publisher;
+use Boekkooi\Tactician\AMQP\Publisher\RemoteProcedure\ResponsePublisher;
 use Boekkooi\Tactician\AMQP\Transformer\ResponseTransformer;
 use Mockery;
 
@@ -68,6 +69,28 @@ class RemoteResponseMiddlewareTest extends MiddlewareTestCase
     /**
      * @test
      */
+    public function it_uses_the_remote_procedure_response_publisher()
+    {
+        $command = Mockery::mock(Command::class);
+        $command
+            ->shouldReceive('getQueue->getChannel')
+            ->andReturn(Mockery::mock(\AMQPChannel::class));
+        $command
+            ->shouldReceive('getEnvelope->getReplyTo')
+            ->andReturn('reply-to');
+        $command
+            ->shouldReceive('getEnvelope->getCorrelationId')
+            ->andReturn(null);
+
+        $this->assertInstanceOf(
+            ResponsePublisher::class,
+            $this->middleware->getNativePublisher($command)
+        );
+    }
+
+    /**
+     * @test
+     */
     public function it_should_pass_trough_none_amqp_commands()
     {
         $this->transformer->shouldNotReceive('transformCommandResponse');
@@ -113,5 +136,10 @@ class RPCMiddlewarePatched extends RemoteResponseMiddleware
     protected function getPublisher(Command $command)
     {
         return $this->publisher;
+    }
+
+    public function getNativePublisher(Command $command)
+    {
+        return parent::getPublisher($command);
     }
 }
