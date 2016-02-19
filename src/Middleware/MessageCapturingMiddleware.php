@@ -3,7 +3,6 @@ namespace Boekkooi\Tactician\AMQP\Middleware;
 
 use Boekkooi\Tactician\AMQP\Message;
 use Boekkooi\Tactician\AMQP\Publisher\MessageCapturer;
-use Boekkooi\Tactician\AMQP\Publisher\Locator\PublisherLocator;
 use League\Tactician\Middleware;
 
 /**
